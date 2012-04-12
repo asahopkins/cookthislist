@@ -1,0 +1,65 @@
+user
+	name
+	email
+	password
+	api_token (? for identifying the bookmarklet)
+	created_at
+	updated_at
+	
+link
+	belongs_to :user
+	belongs_to :url
+	has_many :tags
+	stars (0 to 5)
+	notes (free form)
+	title
+	created_at
+	updated_at
+	has_many :images, limit: 1
+	
+url (separated from page so that we can track multiple users flagging the same recipe)
+	belongs_to :source
+	url (unique)
+	
+source
+	domain (e.g. epicurious.com or smittenkitchen.com)
+
+tag
+	name (e.g. breakfast/lunch/dinner/sides/dessert/snacks/drinks)
+
+image
+	belongs_to :link
+	url
+	original_url ?
+	width
+	height
+	
+CONTROLLERS
+
+link
+	new
+		form to enter URL, title, stars, notes, tag it
+		
+	edit
+		form that displays inline in the list view
+		
+	list
+		main view
+		params include filter=Br,Lu,Dn, etc.
+		
+	create
+		create the new link and return to the list
+	
+	destroy
+		kill the link, remove it from the page being displayed (using JS)
+	
+	update
+		needs a stars-only option for AJAX quick clicks of the stars in the list view (separate update_stars action?)
+		updates the item in the live page (without reloading everything else)
+		
+	process_url
+		post a URL to process_url: returns the "new" form (w/ pre-populated fields) for display as floater above the originating page
+		
+	search (post? get?)
+		should respect the current filters as well
+		basically renders a fancy-filtered list view
