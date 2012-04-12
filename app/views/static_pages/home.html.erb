@@ -1,23 +1,17 @@
 <% if signed_in? %>
-  <div class="row">
-    <aside class="span4">
-      <section>
-        <%= render 'shared/user_info' %>
-      </section>
-    </aside>
-    <div class="span8">
-  </div>
+	<%= render 'shared/user_info' %>
 <% else %>
-  <div class="center hero-unit">
-    <h1>Welcome to Cook This List</h1>
-
-    <h2>
-      This is the home page for the
-      Cook This List application.
-    </h2>
-
-    <%= link_to "Sign up now!", signup_path, 
-                                class: "btn btn-large btn-primary" %>
-  </div>
-
+<div class="row">
+	<div class="span2">&nbsp;</div>
+<div class="center hero-unit span8">
+      <h1>Cook This List</h1>
+      <p>A simple, free way to organize recipes from the internet.</p>
+	<br>
+	We wanted a way to save recipes for later, along with rankings and notes. If you cook from food blogs and like having your iPad in the kitchen, this site is for you.
+	<br> <br>
+    <%= link_to "Sign up", signup_path, class: "btn btn-large btn-primary" %>
+	<%= link_to "Log in", signin_path, class: "btn btn-large" %>
+</div>
+	<div class="span2">&nbsp;</div>
+</div>
 <% end %>

@@ -1,9 +1,63 @@
-<a href="<%= user_path(current_user) %>">
-  <%= gravatar_for current_user, size: 52 %>
-</a>
-<h1>
-  <%= current_user.name %>
-</h1>
-<span>
-  <%= link_to "view my profile", current_user %>
-</span>
+<%= render 'shared/sidebar' %>
+  <div class="span10">
+    <div class="row-fluid">
+      <div class="span2">
+      	<a href="#" class="thumbnail">
+	<img src="http://farm8.staticflickr.com/7014/6813622849_dbd0933bda.jpg" alt="">
+	</a>
+      </div><!--/span-->
+      <div class="span8">
+		<div class="pull-right">
+		<i class="icon-pencil" alt="Edit"></i>
+		<i class="icon-remove" alt="Delete"></i>
+		</div>
+          <h4>Cheddar, Beer, and Mustard Pull-Apart Bread</h4>
+  	<dl class="dl-horizontal">
+	<dt>Source</dt><dd><a href="http://www.smittenkitchen.com">smittenkitchen.com</a></dd>
+	<dt>Rating</dt><dd><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></dd>
+	<dt>Notes</dt><dd>I haven't made this yet, but it looks like it might be a bunch of work. But beer, cheese, bread with mustard does sound good. Has the line wrapped yet?
+	<a class="btn-mini" href=""><i class="icon-plus"></i></a></dd>
+	</dl>
+      </div><!--/span-->
+    </div><!--/row-->
+
+    <div class="row-fluid">
+      <div class="span2">
+      	<a href="#" class="thumbnail">
+	<img src="http://farm8.staticflickr.com/7068/6856745143_e9c633a8bc.jpg" alt="">
+	</a>
+      </div><!--/span-->
+      <div class="span8">
+		<div class="pull-right">
+		<i class="icon-pencil" alt="Edit"></i>
+		<i class="icon-remove" alt="Delete"></i>
+		</div>
+          <h4>Lasagna Bolonese</h4>
+  	<dl class="dl-horizontal">
+	<dt>Source</dt><dd><a href="http://www.smittenkitchen.com">smittenkitchen.com</a></dd>
+	<dt>Rating</dt><dd><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></dd>
+	<dt>Notes</dt><dd>This looks hard.
+	</dl>
+      </div><!--/span-->
+    </div><!--/row-->
+
+    <div class="row-fluid">
+      <div class="span2">
+      	<a href="#" class="thumbnail">
+	<img src="http://farm8.staticflickr.com/7184/6918226085_7dd994a51c.jpg" alt="">
+	</a>
+      </div><!--/span-->
+      <div class="span8">
+		<div class="pull-right">
+		<i class="icon-pencil" alt="Edit"></i>
+		<i class="icon-remove" alt="Delete"></i>
+		</div>
+          <h4>Double Coconut Muffins</h4>
+  	<dl class="dl-horizontal">
+	<dt>Source</dt><dd><a href="http://www.smittenkitchen.com">smittenkitchen.com</a></dd>
+	<dt>Rating</dt><dd><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></dd>
+	<dt>Notes</dt><dd>Tasty!
+	</dl>
+      </div><!--/span-->
+    </div><!--/row-->
+  </div><!--/span10-->
