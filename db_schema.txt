@@ -20,10 +20,8 @@ link
 url (separated from page so that we can track multiple users flagging the same recipe)
 	belongs_to :source
 	url (unique)
-	
-source
 	domain (e.g. epicurious.com or smittenkitchen.com)
-
+	
 tag
 	name (e.g. breakfast/lunch/dinner/sides/dessert/snacks/drinks)
 
