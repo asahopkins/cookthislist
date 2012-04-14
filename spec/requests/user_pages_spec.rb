@@ -4,28 +4,27 @@ describe "User pages" do
 
   subject { page }
 
-  describe "index" do
-    
-    before do
-      sign_in FactoryGirl.create(:user)
-      FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
-      FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
-      visit users_path
-    end
-
-    it { should have_selector('title', text: 'All users') }
-
-  end
-
-  describe "profile page" do
-    let(:user) { FactoryGirl.create(:user) }
-
-    before { visit user_path(user) }
-
-    it { should have_selector('h1',    text: user.name) }
-    it { should have_selector('title', text: user.name) }
-
-  end
+  # describe "profile page" do
+  #   let(:user) { FactoryGirl.create(:user) }
+  #   let(:url1) { FactoryGirl.create(:url) }
+  #   let(:url2) { FactoryGirl.create(:url) }
+  #   let!(:l1) { FactoryGirl.create(:link, user: user, url: url1) }
+  #   let!(:l2) { FactoryGirl.create(:link, user: user, url: url2) }
+  # 
+  #   before do
+  #     sign_in user
+  #     visit user_path(user)
+  #   end
+  # 
+  #   it { should have_selector('h1',    text: user.name) }
+  #   it { should have_selector('title', text: user.name) }
+  # 
+  #   describe "links" do
+  #     it { should have_content(l1.title) }
+  #     it { should have_content(l2.title) }
+  #   end
+  # 
+  # end
 
   describe "signup page" do
     before { visit signup_path }
@@ -86,7 +85,6 @@ describe "User pages" do
     describe "page" do
       it { should have_selector('h1',    text: "Update your profile") }
       it { should have_selector('title', text: "Edit user") }
-      it { should have_link('change', href: 'http://gravatar.com/emails') }
     end
 
     describe "with invalid information" do

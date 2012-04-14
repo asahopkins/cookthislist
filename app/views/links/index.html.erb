@@ -1,0 +1,28 @@
+<%= provide(:title, @user.name+"\'s Links") %>
+<%= render 'shared/sidebar' %>
+  <div class="span10">
+	<div class="row-fluid">
+	</div>
+	<% @links.each do |link| %>
+    <div class="row-fluid">
+      <div class="span2">
+      	<a href="#" class="thumbnail">
+	<img src="http://farm8.staticflickr.com/7014/6813622849_dbd0933bda.jpg" alt="">
+	</a>
+      </div><!--/span-->
+      <div class="span8">
+		<div class="pull-right">
+		<%= link_to '', edit_link_path(link), :class=>"icon-pencil" %>
+		<%= link_to '', link_path(link), :confirm => 'Are you sure?', :method=>:delete, :class=>"icon-remove" %>
+		</div>
+          <h4><%= link_to link.title, link.url.url %></h4>
+  	<dl class="dl-horizontal">
+	<dt>Source</dt><dd><%= link_to link.url.domain, "http://"+link.url.domain %></dd>
+	<dt>Rating</dt><dd><% link.stars.times do %><i class="icon-star"></i><% end %><% (5-link.stars).times do %><i class="icon-star-empty"></i><% end %></dd>
+	<dt>Notes</dt><dd><%= link.notes %>
+	<a class="btn-mini" href=""><i class="icon-plus"></i></a></dd>
+	</dl>
+      </div><!--/span-->
+    </div><!--/row-->
+	<% end %>
+  </div><!--/span10-->

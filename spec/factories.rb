@@ -10,4 +10,14 @@ FactoryGirl.define do
     end
   end
 
+  factory :url do
+    sequence(:url)  { |n| "http://d#{n}.example.com/recipe.html"}
+    sequence(:domain) { |n| "d#{n}.example.com"}
+  end
+  
+  factory :link do
+    stars 3
+    sequence(:title)  { |n| "title_#{n}"}    
+  end
+
 end

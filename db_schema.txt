@@ -18,7 +18,6 @@ link
 	has_many :images, limit: 1
 	
 url (separated from page so that we can track multiple users flagging the same recipe)
-	belongs_to :source
 	url (unique)
 	domain (e.g. epicurious.com or smittenkitchen.com)
 	
