@@ -4,25 +4,42 @@
 	<div class="row-fluid">
 	</div>
 	<% @links.each do |link| %>
-    <div class="row-fluid">
-      <div class="span2">
-      	<a href="#" class="thumbnail">
+	<div class="row-fluid">
+	  <div class="span2">
+	  	<a href="#" class="thumbnail">
 	<img src="http://farm8.staticflickr.com/7014/6813622849_dbd0933bda.jpg" alt="">
 	</a>
-      </div><!--/span-->
-      <div class="span8">
+	  </div><!--/span-->
+	  <div class="span8">
 		<div class="pull-right">
 		<%= link_to '', edit_link_path(link), :class=>"icon-pencil" %>
 		<%= link_to '', link_path(link), :confirm => 'Are you sure?', :method=>:delete, :class=>"icon-remove" %>
 		</div>
-          <h4><%= link_to link.title, link.url.url %></h4>
-  	<dl class="dl-horizontal">
+	      <h4><%= link_to link.title, link.url.url %></h4>
+	<dl class="dl-horizontal">
 	<dt>Source</dt><dd><%= link_to link.url.domain, "http://"+link.url.domain %></dd>
-	<dt>Rating</dt><dd><% link.stars.times do %><i class="icon-star"></i><% end %><% (5-link.stars).times do %><i class="icon-star-empty"></i><% end %></dd>
+	<dt>Rating</dt><dd>
+		<%= form_for(link, remote: true) do |f| %>
+		<script>
+		$(function(){
+		 $('.auto-submit-star').rating({
+		  callback: function(value, link){
+		   $(this.form).ajaxSubmit();
+		  }
+		 });
+		});
+		</script>
+		<% 5.times do |i| %>
+		    <input id="star<%=link.id%>_<%=i+1%>" class="auto-submit-star <% if i==0%>required<%end%>" type="radio" name="link[stars]" value=<%=i+1%> <% if link.stars==i+1 %> checked="checked"<% end %>/>
+		<% end %>
+		<% end %>
+	   <div id="star_status_<%=link.id%>"></div>
+	</dd>
+	<br />
 	<dt>Notes</dt><dd><%= link.notes %>
 	<a class="btn-mini" href=""><i class="icon-plus"></i></a></dd>
 	</dl>
-      </div><!--/span-->
-    </div><!--/row-->
+	  </div><!--/span-->
+	</div><!--/row-->
 	<% end %>
   </div><!--/span10-->

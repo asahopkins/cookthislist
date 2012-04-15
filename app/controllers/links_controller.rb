@@ -35,15 +35,29 @@ class LinksController < ApplicationController
   end
   
   def update
-    @user = current_user  
-    @link = Link.find(params[:id])
-    @url = @link.url
-    if @link.update_attributes(params[:link])
-      flash[:success] = "Link updated"
-      redirect_to links_path
-    else
-      render 'edit'
-    end    
+    if params[:link][:title] #normal edit form
+      @user = current_user  
+      @link = Link.find(params[:id])
+      @url = @link.url
+      params[:link][:stars] = 0 unless params[:link][:stars]
+      if @link.update_attributes(params[:link])
+        flash[:success] = "Link updated"
+        redirect_to links_path
+      else
+        render 'edit'
+      end
+    else #stars only
+      @link = Link.find(params[:id])
+      if @link.update_attributes(params[:link])
+        # @message = "Stars updated"
+        # @key = "success"
+      else
+        flash[:error] = "Stars NOT updated"
+        @user = current_user  
+        @url = @link.url
+        render 'edit'
+      end
+    end
   end
   
   def destroy

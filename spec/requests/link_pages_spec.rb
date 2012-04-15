@@ -68,7 +68,7 @@ describe "Link pages" do
       before do
         fill_in "Url", with: "http://smittenkitchen.com/2012/02/lasagna-bolognese/"
         fill_in "Title", with: "Lasagna"
-        fill_in "Stars", with: "3"
+        choose('star_3')
         fill_in "Notes", with: "note"
       end
       
@@ -104,20 +104,20 @@ describe "Link pages" do
       sign_in user
       visit edit_link_path(l1)
     end
-    describe "with invalid information" do
-      before do
-        fill_in "Stars", with: "6"
-      end
-      it "should not update number of links" do
-        expect { click_button "Update link" }.not_to change(Link, :count)
-      end
-      describe "error messages" do
-        before { click_button "Update link" }
-
-        it { should have_selector('title', text: 'Edit link') }
-        it { should have_content('error') }
-      end
-    end
+    # describe "with invalid information" do
+    #   before do
+    #     fill_in "Stars", with: "6" #with fancy stars, it's no longer possible to create an invalid link
+    #   end
+    #   it "should not update number of links" do
+    #     expect { click_button "Update link" }.not_to change(Link, :count)
+    #   end
+    #   describe "error messages" do
+    #     before { click_button "Update link" }
+    # 
+    #     it { should have_selector('title', text: 'Edit link') }
+    #     it { should have_content('error') }
+    #   end
+    # end
 
     describe "with valid information" do
       before do

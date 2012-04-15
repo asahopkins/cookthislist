@@ -12,8 +12,14 @@
       <%= f.text_field :title %>
 
       <%= f.label :stars %>
-      <%= f.text_field :stars %>
 
+	   <div class="Clear">
+		<% 5.times do |i| %>
+		    <input id="star_<%=i+1%>" class="star" type="radio" name="link[stars]" value=<%=i+1%>/>
+		<% end %>
+	   </div>
+	   <br/>
+	
       <%= f.label :notes %>
       <%= f.text_field :notes %>
 
