@@ -13,16 +13,17 @@ describe "Static pages" do
 
     describe "for signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:url1) { FactoryGirl.create(:url) }
+      let(:url2) { FactoryGirl.create(:url) }
+      let!(:l1) { FactoryGirl.create(:link, user: user, url: url1) }
+      let!(:l2) { FactoryGirl.create(:link, user: user, url: url2) }
       before do
         sign_in user
         visit root_path
       end
 
       it "should render the user's list" do
-        #needs updating
-        # user.links.each do |item|
-        #   page.should have_selector("li##{item.id}", text: item.content)
-        # end
+        page.should have_selector("h4", text: l1.title)
       end
 
     end

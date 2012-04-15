@@ -35,7 +35,7 @@ describe "Link pages" do
     it { should have_link("", href: link_path(l2)) }
     
   end
-  
+    
   describe "new link page" do
     before do
       sign_in user
@@ -148,6 +148,40 @@ describe "Link pages" do
         delete link_path(l1)
       end.to change(Link, :count).by(-1)
     end
+  end
+  
+  describe "index page without sign-in" do
+    before do
+      visit links_path
+    end
+    it { should have_selector('h1',    text: 'Sign in') }
+  end
+  
+  describe "new page without sign-in" do
+    before do
+      visit new_link_path
+    end
+    it { should have_selector('h1',    text: 'Sign in') }
+  end
+  
+  describe "edit page without sign-in" do
+    before do
+      visit edit_link_path(l1)
+    end
+    it { should have_selector('h1',    text: 'Sign in') }
+  end
+  
+  describe "edit page signed in as wrong user" do
+    let(:user2) { FactoryGirl.create(:user) }
+    let(:url3) { FactoryGirl.create(:url) }
+    let!(:l3) { FactoryGirl.create(:link, user: user2, url: url3) }
+    before do
+      sign_in user
+      visit edit_link_path(l3)
+    end
+    it { should have_selector('title', text: user.name) }
+    it { should have_link(l1.title, href: l1.url.url) }
+    it { should have_link(l2.title, href: l2.url.url) }
   end
   
 end

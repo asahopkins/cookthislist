@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
-  # before_filter :signed_in_user
-  # before_filter :correct_user, only: [:edit, :update, :destroy]
+  before_filter :signed_in_user
+  before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @user = current_user
@@ -30,14 +30,14 @@ class LinksController < ApplicationController
   end
   
   def edit
-    @user = current_user  
-    @link = Link.find(params[:id])
+    # @user = current_user  
+    # @link = Link.find(params[:id])
   end
   
   def update
     if params[:link][:title] #normal edit form
-      @user = current_user  
-      @link = Link.find(params[:id])
+      # @user = current_user  
+      # @link = Link.find(params[:id])
       @url = @link.url
       params[:link][:stars] = 0 unless params[:link][:stars]
       if @link.update_attributes(params[:link])
@@ -47,13 +47,13 @@ class LinksController < ApplicationController
         render 'edit'
       end
     else #stars only
-      @link = Link.find(params[:id])
+      # @link = Link.find(params[:id])
       if @link.update_attributes(params[:link])
         # @message = "Stars updated"
         # @key = "success"
       else
         flash[:error] = "Stars NOT updated"
-        @user = current_user  
+        # @user = current_user  
         @url = @link.url
         render 'edit'
       end
@@ -66,11 +66,17 @@ class LinksController < ApplicationController
     redirect_to links_path
   end
   
-  # private
-  # def correct_user
-  #   @user = Link.find(params[:id]).user
-  #   redirect_to(root_path) unless current_user?(@user)
-  # end
+  private
+  
+  def correct_user
+    if Link.find(params[:id])
+      @link = Link.find(params[:id])
+      @user = @link.user
+      redirect_to(root_path) unless current_user?(@user)
+    else
+      redirect_to(root_path)
+    end
+  end
 
   
 end
