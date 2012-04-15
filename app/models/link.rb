@@ -1,4 +1,5 @@
 class Link < ActiveRecord::Base
+  attr_accessible :stars, :title, :notes, :user_id, :url_id
   belongs_to :user
   belongs_to :url
   

@@ -6,7 +6,7 @@ user
 	created_at
 	updated_at
 	
-link
+link 
 	belongs_to :user
 	belongs_to :url
 	has_many :tags
