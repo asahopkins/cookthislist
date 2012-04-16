@@ -1,9 +1,11 @@
 Cookthislist::Application.routes.draw do
   resources :users, except: [:show]
   resources :sessions, only: [:new, :create, :destroy]
-  resources :links
+  resources :links, except: [:show]
 
   root to: 'static_pages#home'
+
+  match '/links/*tags', to: 'links#index'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

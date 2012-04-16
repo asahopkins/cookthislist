@@ -2,11 +2,25 @@ class Link < ActiveRecord::Base
   attr_accessible :stars, :title, :notes, :user_id, :url_id
   belongs_to :user
   belongs_to :url
+  has_many :tags, through: :taggings
+  has_many :taggings
   
   validate :stars_in_range
   validate :user_exists
   validate :url_exists
   validates :title, presence: true
+  
+  # scope :tagged_with, lambda { |tag_id| {:conditions => {"taggings.tag_id" => tag_id}, :include=>:taggings } }
+  # 
+  
+  def tag_with(new_tags)
+    self.taggings.each do |tagging|
+      tagging.delete
+    end
+    new_tags.each do |tag|
+      self.tags << tag
+    end
+  end
   
   def stars_in_range
     if stars.blank? or stars < 0 or stars > 5

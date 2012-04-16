@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120414133528) do
+ActiveRecord::Schema.define(:version => 20120415205022) do
 
   create_table "links", :force => true do |t|
     t.integer  "stars",      :default => 0
@@ -21,6 +21,19 @@ ActiveRecord::Schema.define(:version => 20120414133528) do
     t.integer  "url_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+  end
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "link_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "taggings", ["link_id", "tag_id"], :name => "index_taggings_on_link_id_and_tag_id", :unique => true
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
   end
 
   create_table "urls", :force => true do |t|

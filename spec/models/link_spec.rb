@@ -22,6 +22,7 @@ describe Link do
   it { should respond_to(:title) }
   it { should respond_to(:url) }
   it { should respond_to(:user) }
+  it { should respond_to(:tags) }
 
   it { should be_valid }
   

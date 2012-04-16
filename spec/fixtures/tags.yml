@@ -1,0 +1,21 @@
+breakfast:
+  id: 1 
+  name: Breakfast
+lunch:
+  id: 2 
+  name: Lunch
+dinner:
+  id: 3
+  name: Dinner
+sides:
+  id: 4
+  name: Sides
+desserts:
+  id: 5
+  name: Desserts
+snacks:
+  id: 6
+  name: Snacks
+drinks:
+  id: 7
+  name: Drinks

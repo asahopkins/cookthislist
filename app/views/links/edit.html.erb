@@ -18,6 +18,13 @@
 	   </div>
 	   <br/>
 
+	<div class="btn-group">
+		<% @tags.each do |tag|%>
+	    <input type="checkbox" id="tag_<%=tag.id%>" name="link[tag][<%=tag.id%>]" value="<%=tag.id%>" <% if @link.tags.include?(tag)%>checked<% end %>/>
+	    <label class="btn" for="tag_<%=tag.id%>"><%=tag.name%></label>
+		<% end %>
+	</div>
+
       <%= f.label :notes %>
       <%= f.text_field :notes %>
 

@@ -23,6 +23,13 @@
       <%= f.label :notes %>
       <%= f.text_field :notes %>
 
+	<div class="btn-group">
+		<% @tags.each do |tag|%>
+	    <input type="checkbox" id="tag_<%=tag.id%>" name="link[tag][<%=tag.id%>]" value="<%=tag.id%>"/>
+	    <label class="btn" for="tag_<%=tag.id%>"><%=tag.name%></label>
+		<% end %>
+	</div>
+
       <%= f.submit "Create link", :class => "btn btn-large btn-primary" %>
     <% end %>
   </div>
