@@ -49,26 +49,26 @@ describe "Link pages" do
       it { should_not have_link(l2.title, href: l2.url.url) }
       it { should_not have_link(l4.title, href: l4.url.url) }
     end
-    describe "with two tag filters" do
+    describe "with one and then another tag filters" do
       before do
         visit links_path
         click_link "Breakfast"
+        click_link "Desserts"
+      end
+      it { should_not have_link(l1.title, href: l1.url.url) }
+      it { should have_link(l2.title, href: l2.url.url) }
+      it { should_not have_link(l4.title, href: l4.url.url) }   
+    end
+    describe "back to un-filtered after two" do
+      before do
+        visit links_path
+        click_link "Breakfast"
+        click_link "Desserts"
         click_link "Desserts"
       end
       it { should have_link(l1.title, href: l1.url.url) }
       it { should have_link(l2.title, href: l2.url.url) }
-      it { should_not have_link(l4.title, href: l4.url.url) }   
-    end
-    describe "back to one filter after two" do
-      before do
-        visit links_path
-        click_link "Breakfast"
-        click_link "Desserts"
-        click_link "Desserts"
-      end
-      it { should have_link(l1.title, href: l1.url.url) }
-      it { should_not have_link(l2.title, href: l2.url.url) }
-      it { should_not have_link(l4.title, href: l4.url.url) }
+      it { should have_link(l4.title, href: l4.url.url) }
     end
     
   end

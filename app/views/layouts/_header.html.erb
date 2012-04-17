@@ -1,7 +1,7 @@
 <header class="navbar">
   <div class="navbar-inner">
     <div class="container">
-	<%= image_tag("ctl_horizontal.png", alt: "Cook This List") %>
+	<%= link_to image_tag("ctl_horizontal.png", alt: "Cook This List"), root_path%>
           <% if signed_in? %>
         <ul class="nav pull-right">
           <li class="dropdown">

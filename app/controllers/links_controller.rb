@@ -5,20 +5,13 @@ class LinksController < ApplicationController
   def index
     @user = current_user
     @all_tags = Tag.all
-    @tags = []
-    @tag_names= []
-    if params[:tags]
-      params[:tags] = params[:tags].split("/")
+    if params[:tag]
       @links = Link.where(:user_id == @user.id).includes(:taggings)
-      tag_ids = []
-      params[:tags].each do |tag|
-        if Tag.find_by_name(tag)
-          tag_ids << Tag.find_by_name(tag).id 
-          @tag_names << tag
-          @tags << Tag.find_by_name(tag)
-        end
+      if @tag = Tag.find_by_name(params[:tag])
+        @links = @links.where("taggings.tag_id" => @tag.id)
+      else
+        @links = @user.links        
       end
-      @links = @links.where("taggings.tag_id" => tag_ids)
     else
       @links = @user.links
     end

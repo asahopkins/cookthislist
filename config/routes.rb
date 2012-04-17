@@ -5,7 +5,7 @@ Cookthislist::Application.routes.draw do
 
   root to: 'static_pages#home'
 
-  match '/links/*tags', to: 'links#index'
+  match '/links/:tag', to: 'links#index'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

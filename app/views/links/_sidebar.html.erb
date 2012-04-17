@@ -1,18 +1,20 @@
 <div class="span2">
-	<%= link_to "Add Link", new_link_path %>
   <div class="well sidebar-nav">
     <ul class="nav nav-list">
-      <li class="nav-header">Filters</li>
+	  <li><%= link_to "Add Link", new_link_path %></li>
+    </ul>
+  </div> <!--/.well -->
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <li class="nav-header">Sections</li>
+		<li<% if @tag.nil?%> class="active"<%end%>><%= link_to "All Links", links_path %></li>	
 	<% @all_tags.each do |tag| %>
-      <% if @tags.include?(tag) 
-		remaining_tags = @tag_names - [tag.name]
-		path = links_path+"/"+remaining_tags.join("/")%>
-		<li class="active"><%= link_to tag.name, path %></li>
-	  <% else 
-		path = links_path+"/"+(@tag_names+[tag.name]).join("/")%>
-		<li><%= link_to tag.name, path %></li>	
+      <% if @tag == tag %>
+		<li class="active"><%= link_to tag.name, links_path %></li>
+	  <% else %>
+		<li><%= link_to tag.name, links_path+"/"+tag.name %></li>	
 	  <% end %>
 	<% end %>
     </ul>
-  </div><!--/.well -->
-</div><!--/span-->
+  </div> <!--/.well -->
+</div> <!--/span-->
