@@ -6,9 +6,9 @@ class LinksController < ApplicationController
     @user = current_user
     @all_tags = Tag.all
     if params[:tag]
-      @links = Link.where(:user_id == @user.id).includes(:taggings)
+      # @links = Link.where(:user_id == @user.id).includes(:taggings)
       if @tag = Tag.find_by_name(params[:tag])
-        @links = @links.where("taggings.tag_id" => @tag.id)
+        @links = Link.includes(:taggings).where("links.user_id" => @user.id).where("taggings.tag_id" => @tag.id)
       else
         @links = @user.links        
       end
