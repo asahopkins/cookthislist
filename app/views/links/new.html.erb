@@ -6,7 +6,7 @@
     <%= form_for(@link) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <%= f.label :url %>
-      <%= f.text_field :url, :value => "" %>
+      <%= f.text_field :url, :value => @url_value.to_s %>
 
       <%= f.label :title %>
       <%= f.text_field :title %>

@@ -21,6 +21,9 @@ class LinksController < ApplicationController
     @user = current_user  
     @link = Link.new
     @tags = Tag.all
+    if params[:url]
+      @url_value = params[:url]
+    end
   end
   
   def create
