@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
-  has_many :links, :order => 'created_at DESC'
+  has_many :links#, :order => 'created_at DESC'
 
   before_save :create_remember_token
 

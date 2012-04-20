@@ -1,20 +1,42 @@
 class LinksController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user, only: [:edit, :update, :destroy]
+  VALID_DOMAIN_REGEX = /^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}$/i
 
   def index
     @user = current_user
     @all_tags = Tag.all
-    if params[:tag]
-      # @links = Link.where(:user_id == @user.id).includes(:taggings)
-      if @tag = Tag.find_by_name(params[:tag])
-        @links = Link.includes(:taggings).where("links.user_id" => @user.id).where("taggings.tag_id" => @tag.id).paginate(page: params[:page])
-      else
-        @links = @user.links.paginate(page: params[:page])    
-      end
+    if params[:sort] == "stars"
+      order = "links.stars DESC, links.created_at DESC"
+      star_filter = "links.stars < 6"
+    elsif params[:sort] == "nostars"
+      order = "links.created_at DESC"
+      star_filter = "links.stars = 0"
     else
-      @links = @user.links.paginate(page: params[:page])
+      order = "links.created_at DESC"
+      star_filter = "links.stars < 6"
     end
+    @links = Link.includes(:taggings).includes(:url).where("links.user_id" => @user.id)
+    @rating_hash = {sort: "stars"}
+    @date_hash = { }
+    @nostar_hash = {sort: "nostars"}
+    if params[:tag]
+      if tmp = Tag.find_by_name(params[:tag])
+        @tag = tmp
+        @links = @links.where("taggings.tag_id" => @tag.id)
+        @rating_hash[:tag] = @tag.name
+        @date_hash[:tag] = @tag.name
+        @nostar_hash[:tag] = @tag.name
+      end
+    end
+    if params[:source] =~ VALID_DOMAIN_REGEX
+      @source = params[:source]
+      @links = @links.where("urls.domain" => @source)
+      @rating_hash[:source] = @source
+      @date_hash[:source] = @source
+      @nostar_hash[:source] = @source
+    end
+    @links = @links.where(star_filter).order(order).paginate(page: params[:page])
   end
   
   def new

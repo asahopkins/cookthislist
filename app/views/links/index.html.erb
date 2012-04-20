@@ -1,8 +1,12 @@
 <%= provide(:title, @user.name+"\'s Links") %>
 <%= render 'links/sidebar' %>
-  <div class="span10">
-	<% @links.each do |link| %>
+  <div class="span10" id="link_list">
 	<div class="row-fluid">
+		<% if @source %>Links from <%=link_to @source, "http://"+@source, target: "_blank"%><br/><%end%>
+		Sort by: <%= link_to "Rating", links_path(@rating_hash) %> <%= link_to "Date added", links_path(@date_hash) %> <%= link_to "No stars", links_path(@nostar_hash) %>
+	</div>
+	<% @links.each do |link| %>
+	<div class="row-fluid link_show">
 	  <div class="span2">
 	  	<a href="#" class="thumbnail">
 	<img src="http://farm8.staticflickr.com/7014/6813622849_dbd0933bda.jpg" alt="">
@@ -13,9 +17,9 @@
 		<%= link_to '', edit_link_path(link), :class=>"icon-pencil" %>
 		<%= link_to '', link_path(link), :confirm => 'Are you sure?', :method=>:delete, :class=>"icon-remove" %>
 		</div>
-	      <h4><%= link_to link.title, link.url.url %></h4>
+	      <h4><%= link_to link.title, link.url.url, target: "_blank" %></h4>
 	<dl class="dl-horizontal">
-	<dt>Source</dt><dd><%= link_to link.url.domain, "http://"+link.url.domain %></dd>
+	<dt>Source</dt><dd><%= link_to link.url.domain, links_path(source: link.url.domain) %></dd>
 	<dt>Rating</dt><dd>
 		<%= form_for(link, remote: true) do |f| %>
 		<script>
