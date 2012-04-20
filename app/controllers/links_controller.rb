@@ -8,12 +8,12 @@ class LinksController < ApplicationController
     if params[:tag]
       # @links = Link.where(:user_id == @user.id).includes(:taggings)
       if @tag = Tag.find_by_name(params[:tag])
-        @links = Link.includes(:taggings).where("links.user_id" => @user.id).where("taggings.tag_id" => @tag.id)
+        @links = Link.includes(:taggings).where("links.user_id" => @user.id).where("taggings.tag_id" => @tag.id).paginate(page: params[:page])
       else
-        @links = @user.links        
+        @links = @user.links.paginate(page: params[:page])    
       end
     else
-      @links = @user.links
+      @links = @user.links.paginate(page: params[:page])
     end
   end
   

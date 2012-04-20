@@ -10,6 +10,8 @@ class Link < ActiveRecord::Base
   validate :url_exists
   validates :title, presence: true
   
+  self.per_page = 30
+  
   # scope :tagged_with, lambda { |tag_id| {:conditions => {"taggings.tag_id" => tag_id}, :include=>:taggings } }
   # 
   

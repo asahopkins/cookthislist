@@ -20,6 +20,12 @@ describe "Link pages" do
     l1.save
     l2.save
   end
+  
+  after(:all) do
+    Link.delete_all
+    Url.delete_all
+    User.delete_all
+  end
 
   subject { page }
   
@@ -69,6 +75,49 @@ describe "Link pages" do
       it { should have_link(l1.title, href: l1.url.url) }
       it { should have_link(l2.title, href: l2.url.url) }
       it { should have_link(l4.title, href: l4.url.url) }
+    end
+    
+    describe "pagination" do 
+      before(:all) do
+        35.times do
+          FactoryGirl.create(:url)
+          url = Url.last
+          FactoryGirl.create(:link, user: user, url: url)
+        end
+      end
+      after(:all) do 
+        Link.delete_all
+        Url.delete_all
+        User.delete_all
+      end
+
+      let(:first_page)  { user.links.page(1) }
+      let(:second_page) { user.links.page(2) }
+
+      it { should have_link('Next') }
+      it { should have_link('2') }
+      
+      it "should list the first page of links" do
+        first_page.each do |link|
+          page.should have_link(link.title, href: link.url.url)
+        end
+      end
+
+      it "should not list the second page of links" do
+        second_page.each do |link|
+          page.should_not have_link(link.title, href: link.url.url)
+        end
+      end
+
+      describe "showing the second page" do
+        before { visit links_path(page: 2) }
+
+        it "should list the second page of links" do
+          second_page.each do |link|
+            page.should have_link(link.title, href: link.url.url)
+          end
+        end
+      end
     end
     
   end

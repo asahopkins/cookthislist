@@ -1,8 +1,6 @@
 <%= provide(:title, @user.name+"\'s Links") %>
 <%= render 'links/sidebar' %>
   <div class="span10">
-	<div class="row-fluid">
-	</div>
 	<% @links.each do |link| %>
 	<div class="row-fluid">
 	  <div class="span2">
@@ -42,4 +40,7 @@
 	  </div><!--/span-->
 	</div><!--/row-->
 	<% end %>
+	<div class="row-fluid">
+		<%= will_paginate @links %>
+	</div>
   </div><!--/span10-->
