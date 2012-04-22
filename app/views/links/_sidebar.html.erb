@@ -7,7 +7,7 @@
   <div class="well sidebar-nav">
     <ul class="nav nav-list">
       <li class="nav-header">Sections</li>
-		<li<% if @tag.nil?%> class="active"<%end%>><%= link_to "All Links", links_path %></li>	
+		<li<% if (@tag.nil? && @source.nil? && @query.nil?)%> class="active"<%end%>><%= link_to "All Links", links_path %></li>	
 	<% @all_tags.each do |tag| %>
       <% if @tag == tag %>
 		<li class="active"><%= link_to tag.name, links_path %></li>
